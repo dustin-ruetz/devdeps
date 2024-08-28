@@ -124,7 +124,7 @@ export const makeJestConfig = async (): Promise<Config> => {
 						 */
 						target: "ES2022",
 					},
-					sourceMaps: true,
+					sourceMaps: "inline",
 				},
 			],
 			".svg": `${transformerBasePath}/lib/config/jest-transformers/svgFile.js`,
