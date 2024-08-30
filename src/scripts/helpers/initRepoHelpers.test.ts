@@ -20,8 +20,8 @@ jest.mock("node:fs/promises", () => ({
 }));
 // Paraphrased excerpt from https://www.mikeborozdin.com/post/changing-jest-mocks-between-tests:
 // > Typecast the imported mocked module into a mocked function with writeable properties.
-const mockReaddir = readdir as jest.MockedFunction<typeof readdir>;
-const mockReadFile = readFile as jest.MockedFunction<typeof readFile>;
+const readdirMock = readdir as jest.MockedFunction<typeof readdir>;
+const readFileMock = readFile as jest.MockedFunction<typeof readFile>;
 
 beforeAll(() => {
 	jest.spyOn(console, "log").mockImplementation();
@@ -49,7 +49,7 @@ test("writeGitHooks", async () => {
 		"pre-push",
 	] as const;
 	/** @ts-expect-error @todo Figure out how to correctly type the promise's resolved value here. */
-	mockReaddir.mockResolvedValue(githooksDirectoryContents);
+	readdirMock.mockResolvedValue(githooksDirectoryContents);
 	// Filter out the "_" underscore directory since it contains the husky-specific script files.
 	const githooksFiles = githooksDirectoryContents.filter(
 		(item) => item !== "_",
@@ -84,8 +84,8 @@ test("writeGitIgnore", async () => {
 });
 
 test("writeLicense", async () => {
-	mockReadFile.mockResolvedValue("Copyright (c) 1999 Dustin Ruetz");
-	const currentYear = new Date().getFullYear();
+	readFileMock.mockResolvedValue("Copyright (c) 1999 Dustin Ruetz");
+	const currentYear = new Date().getFullYear().toString();
 
 	await writeLicense();
 
@@ -137,7 +137,7 @@ describe("writePackageJson", () => {
 		"stylelint --config ./node_modules/@dustin-ruetz/devdeps/lib/config/stylelint.config.js";
 
 	test("it *does not* configure Stylelint", async () => {
-		mockReadFile.mockResolvedValue(mockPackageJsonContents);
+		readFileMock.mockResolvedValue(mockPackageJsonContents);
 
 		await writePackageJson("repo-name", false);
 
@@ -159,7 +159,7 @@ describe("writePackageJson", () => {
 	});
 
 	test("it *does* configure Stylelint", async () => {
-		mockReadFile.mockResolvedValue(mockPackageJsonContents);
+		readFileMock.mockResolvedValue(mockPackageJsonContents);
 
 		await writePackageJson("repo-name", true);
 

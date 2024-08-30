@@ -11,7 +11,7 @@ test("it exports a configuration array and the most important config options are
 
 	// Verify that one of the strict rules is included in the configuration.
 	const strictConfig = typescripteslintPlugin.find(
-		(configObj) => configObj.name === "typescript-eslint/strict",
+		(configObj) => configObj.name === "typescript-eslint/strict-type-checked",
 	);
 	expect(
 		strictConfig?.rules?.["@typescript-eslint/no-invalid-void-type"],
@@ -19,7 +19,8 @@ test("it exports a configuration array and the most important config options are
 
 	// Verify that one of the stylistic rules is included in the configuration.
 	const stylisticConfig = typescripteslintPlugin.find(
-		(configObj) => configObj.name === "typescript-eslint/stylistic",
+		(configObj) =>
+			configObj.name === "typescript-eslint/stylistic-type-checked",
 	);
 	expect(stylisticConfig?.rules?.["@typescript-eslint/prefer-for-of"]).toEqual(
 		"error",
@@ -29,10 +30,20 @@ test("it exports a configuration array and the most important config options are
 	const userDefinedConfig = typescripteslintPlugin.find(
 		(configObj) => configObj.name === "typescript-eslint/user-defined-config",
 	);
+	expect(userDefinedConfig?.languageOptions).toStrictEqual({
+		parserOptions: {
+			projectService: true,
+		},
+	});
+	expect(
+		userDefinedConfig?.rules?.[
+			"@typescript-eslint/consistent-type-definitions"
+		],
+	).toStrictEqual(["error", "type"]);
 	expect(userDefinedConfig?.rules?.["no-unused-vars"]).toEqual("off");
 	expect(
 		userDefinedConfig?.rules?.["@typescript-eslint/no-unused-vars"],
-	).toEqual([
+	).toStrictEqual([
 		"error",
 		{
 			args: "all",

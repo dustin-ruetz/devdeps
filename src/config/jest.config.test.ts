@@ -1,14 +1,6 @@
 import {dependsOnMock} from "../utils/dependsOn.mock.js";
-import {getAbsoluteRepoRootPath} from "../utils/getAbsoluteRepoRootPath.js";
+import {getAbsoluteRepoRootPathMock} from "../utils/getAbsoluteRepoRootPath.mock.js";
 import {makeJestConfig} from "./jest.config.js";
-
-jest.mock("../utils/getAbsoluteRepoRootPath.js", () => ({
-	getAbsoluteRepoRootPath: jest.fn(() => ""),
-}));
-const mockGetAbsoluteRepoRootPath =
-	getAbsoluteRepoRootPath as jest.MockedFunction<
-		typeof getAbsoluteRepoRootPath
-	>;
 
 afterEach(() => {
 	jest.clearAllMocks();
@@ -18,7 +10,7 @@ describe("it exports a configuration object and the most important config option
 	test("for the parts of the config that *are not* affected by conditional logic", async () => {
 		const hasFrontendDependencies = false;
 		dependsOnMock.mockResolvedValue(hasFrontendDependencies);
-		mockGetAbsoluteRepoRootPath.mockReturnValue(
+		getAbsoluteRepoRootPathMock.mockReturnValue(
 			"/Users/username/repos/devdeps",
 		);
 
@@ -39,7 +31,7 @@ describe("it exports a configuration object and the most important config option
 	test("when testing this devdeps repo (which *does not* have frontend dependencies)", async () => {
 		const hasFrontendDependencies = false;
 		dependsOnMock.mockResolvedValue(hasFrontendDependencies);
-		mockGetAbsoluteRepoRootPath.mockReturnValue(
+		getAbsoluteRepoRootPathMock.mockReturnValue(
 			"/Users/username/repos/devdeps",
 		);
 
@@ -56,7 +48,7 @@ describe("it exports a configuration object and the most important config option
 	test("when testing a repo that has installed the devdeps package (repo *does* have frontend dependencies)", async () => {
 		const hasFrontendDependencies = true;
 		dependsOnMock.mockResolvedValue(hasFrontendDependencies);
-		mockGetAbsoluteRepoRootPath.mockReturnValue(
+		getAbsoluteRepoRootPathMock.mockReturnValue(
 			"/Users/username/repos/consuming-repo",
 		);
 

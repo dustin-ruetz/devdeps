@@ -36,7 +36,7 @@ const eslintConfig = typescripteslint.config(
 				 * @todo Ideally the `browser` global variables would be included conditionally in the configuration
 				 *       only if/when the consuming repository depends on a frontend-specific package. This check
 				 *       could be done easily if either 1) ESLint supported functions in its config, or 2) if Jest
-				 *       supported top-level `await`; revisit this if/when these limitations are removed.
+				 *       supported top-level `await`; revisit this if/when these limitations can be overcome.
 				 */
 				...globals.browser,
 				...globals.jest,
@@ -65,10 +65,11 @@ const eslintConfig = typescripteslint.config(
 			"arrow-body-style": "error",
 			camelcase: "error",
 			curly: "error",
-			// Ideally the "dot-notation" rule would be set to "error" below, but this rule often conflicts with the strictest tsconfig
-			// `"compilerOptions"` setting the `"noPropertyAccessFromIndexSignature"` option to `true`. Having these errors typechecked
-			// is valuable and constantly disabling the `"dot-notation"` rule is tedious, so just don't enable this rule.
-			// "dot-notation": "error",
+			/**
+			 * Refer to the `typescript-eslint` configuration file to see how this `dot-notation` rule is overridden.
+			 * @see [typescript-eslint.ts](./eslint-plugins/typescript-eslint.ts)
+			 */
+			"dot-notation": "error",
 			eqeqeq: "error",
 			"guard-for-in": "error",
 			"no-array-constructor": "error",
@@ -113,6 +114,11 @@ const eslintConfig = typescripteslint.config(
 			"no-undef-init": "error",
 			"no-unneeded-ternary": "error",
 			"no-unused-expressions": "error",
+			/**
+			 * Refer to the `typescript-eslint` configuration file to see how this `no-unused-vars` rule is overridden.
+			 * @see [typescript-eslint.ts](./eslint-plugins/typescript-eslint.ts)
+			 */
+			"no-unused-vars": "error",
 			"no-useless-call": "error",
 			"no-useless-computed-key": "error",
 			"no-useless-concat": "error",

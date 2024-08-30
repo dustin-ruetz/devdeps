@@ -1,18 +1,15 @@
-import {getAbsoluteRepoRootPath} from "../../utils/getAbsoluteRepoRootPath.js";
+import {getAbsoluteRepoRootPathMock} from "../../utils/getAbsoluteRepoRootPath.mock.js";
 import {getRootPaths} from "./getRootPaths.js";
-
-jest.mock("../../utils/getAbsoluteRepoRootPath.js", () => ({
-	getAbsoluteRepoRootPath: jest.fn(() => ""),
-}));
-const mockGetAbsoluteRepoRootPath =
-	getAbsoluteRepoRootPath as jest.MockedFunction<
-		typeof getAbsoluteRepoRootPath
-	>;
 
 afterEach(() => {
 	jest.clearAllMocks();
 });
 
+/**
+ * @todo Ideally this `unbound-method` lint error should be handled by the `eslint-plugin-jest` package.
+ * @link https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/unbound-method.md
+ */
+// eslint-disable-next-line @typescript-eslint/unbound-method
 const initialProcessCwd = process.cwd;
 afterAll(() => {
 	process.cwd = initialProcessCwd;
@@ -20,7 +17,7 @@ afterAll(() => {
 
 describe("the returned root paths (1. to read from, and 2. to write to) are correct when called from", () => {
 	test("this devdeps repo", () => {
-		mockGetAbsoluteRepoRootPath.mockReturnValue(
+		getAbsoluteRepoRootPathMock.mockReturnValue(
 			"/Users/username/repos/devdeps",
 		);
 
@@ -34,7 +31,7 @@ describe("the returned root paths (1. to read from, and 2. to write to) are corr
 
 	test("a consuming repo that has installed the devdeps package", () => {
 		const consumingRepoAbsoluteRootDir = "/Users/username/repos/consuming-repo";
-		mockGetAbsoluteRepoRootPath.mockReturnValue(consumingRepoAbsoluteRootDir);
+		getAbsoluteRepoRootPathMock.mockReturnValue(consumingRepoAbsoluteRootDir);
 
 		process.cwd = () => consumingRepoAbsoluteRootDir;
 

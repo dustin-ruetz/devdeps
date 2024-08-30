@@ -1,4 +1,5 @@
 import {mkdir, readdir, readFile, writeFile} from "node:fs/promises";
+import type {PackageJsonTypes} from "../../types.js";
 import {
 	nodeModulesPackagePath,
 	packageName,
@@ -100,11 +101,9 @@ export const writePackageJson = async (
 	repoName: string,
 	configureStylelint: boolean,
 ) => {
-	const packageJsonContents = await readFile(
-		`${rootPathToReadFrom}/package.json`,
-		encoding,
-	);
-	const packageJson = JSON.parse(packageJsonContents);
+	const packageJsonPath = `${rootPathToReadFrom}/package.json`;
+	const packageJsonContents = await readFile(packageJsonPath, encoding);
+	const packageJson = JSON.parse(packageJsonContents) as PackageJsonTypes;
 
 	const devdepsVersion = packageJson.version;
 
@@ -113,7 +112,7 @@ export const writePackageJson = async (
 	packageJson.description = "";
 
 	packageJson.scripts = Object.entries(packageJson.scripts).reduce(
-		(scriptsObject: Record<string, string>, [scriptKey, scriptValue]) => {
+		(scriptsObject: PackageJsonTypes["scripts"], [scriptKey, scriptValue]) => {
 			/**
 			 * The following `String` conversion prevents TypeScript from reporting the following error:
 			 * > `"scriptValue" is of type "unknown". ts(18046)`
@@ -145,11 +144,11 @@ export const writePackageJson = async (
 	}
 
 	packageJson.files = [];
+	delete packageJson.publishConfig;
 	packageJson.repository.url = packageJson.repository.url.replace(
 		packageName,
 		repoName,
 	);
-	delete packageJson.publishConfig;
 	packageJson.dependencies = {};
 	packageJson.devDependencies = {
 		[`${packageScope}/${packageName}`]: devdepsVersion,

@@ -33,9 +33,6 @@ test("it exports a configuration array and the most important config options are
 		reportUnusedDisableDirectives: "error",
 	});
 	expect(userDefinedConfig?.rules?.["camelcase"]).toEqual("error");
-	// Verify that ESLint's "dot-notation" rule is `undefined` because enabling it
-	// conflicts with TypeScript's "noPropertyAccessFromIndexSignature" rule.
-	expect(userDefinedConfig?.rules?.["dot-notation"]).toBeUndefined();
 	expect(userDefinedConfig?.rules?.["no-console"]).toEqual("warn");
 	expect(userDefinedConfig?.rules?.["no-magic-numbers"]).toStrictEqual([
 		"error",

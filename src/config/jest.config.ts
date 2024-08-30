@@ -1,7 +1,7 @@
 import type {Config} from "jest";
 import {dependsOn} from "../utils/dependsOn.js";
-import {getIsDevDepsRepo} from "../utils/getIsDevDepsRepo.js";
 import {getAbsoluteRepoRootPath} from "../utils/getAbsoluteRepoRootPath.js";
+import {getIsDevDepsRepo} from "../utils/getIsDevDepsRepo.js";
 import {nodeModulesPackagePath} from "../constants.js";
 
 /** https://jestjs.io/docs/configuration */
@@ -28,6 +28,7 @@ export const makeJestConfig = async (): Promise<Config> => {
 		"<rootDir>/node_modules/",
 		"<rootDir>/www/",
 		".mock.(js|ts)",
+		"types.ts",
 	] as const;
 
 	/** The base path to the files/packages used as Jest transformers. */

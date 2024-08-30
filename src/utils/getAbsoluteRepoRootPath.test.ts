@@ -6,7 +6,7 @@ jest.mock("node:url", () => ({
 }));
 // Paraphrased excerpt from https://www.mikeborozdin.com/post/changing-jest-mocks-between-tests:
 // > Typecast the imported mocked module into a mocked function with writeable properties.
-const mockFileURLToPath = fileURLToPath as jest.MockedFunction<
+const fileURLToPathMock = fileURLToPath as jest.MockedFunction<
 	typeof fileURLToPath
 >;
 
@@ -43,7 +43,7 @@ const absolutePaths = {
 
 test("throws an error if partialPath is not present within absolutePath", () => {
 	const absolutePath = `${absolutePaths.base}/bad-path`;
-	mockFileURLToPath.mockReturnValue(absolutePath);
+	fileURLToPathMock.mockReturnValue(absolutePath);
 
 	expect(() => {
 		getAbsoluteRepoRootPath();
@@ -53,7 +53,7 @@ test("throws an error if partialPath is not present within absolutePath", () => 
 describe("it determines the correct absolute root directory", () => {
 	test("when installed as a dependency running from a `node_modules/` folder", () => {
 		const absolutePath = absolutePaths.asDependency();
-		mockFileURLToPath.mockReturnValue(absolutePath);
+		fileURLToPathMock.mockReturnValue(absolutePath);
 
 		const absoluteRepoRootPath = getAbsoluteRepoRootPath();
 
@@ -64,7 +64,7 @@ describe("it determines the correct absolute root directory", () => {
 
 	test("when run as a JavaScript file inside the lib/ folder", () => {
 		const absolutePath = absolutePaths.asLibraryJavaScriptFile();
-		mockFileURLToPath.mockReturnValue(absolutePath);
+		fileURLToPathMock.mockReturnValue(absolutePath);
 
 		const absoluteRepoRootPath = getAbsoluteRepoRootPath();
 
@@ -73,7 +73,7 @@ describe("it determines the correct absolute root directory", () => {
 
 	test("when run as a TypeScript file inside the src/ folder", () => {
 		const absolutePath = absolutePaths.asSourceTypeScriptFile();
-		mockFileURLToPath.mockReturnValue(absolutePath);
+		fileURLToPathMock.mockReturnValue(absolutePath);
 
 		const absoluteRepoRootPath = getAbsoluteRepoRootPath();
 

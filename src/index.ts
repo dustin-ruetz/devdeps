@@ -27,7 +27,7 @@ export const runScript = async () => {
 			// If either 1) no arguments are passed, or 2) one of the `help` flags are passed, then:
 			if (args.length === 0 || hasHelpFlag) {
 				// 1. Log the help text for the command.
-				logInitRepoHelpText();
+				void logInitRepoHelpText();
 				// 2. Terminate the script.
 				break;
 			}
@@ -35,13 +35,13 @@ export const runScript = async () => {
 			// The repository name is the only required argument and it has to be the first one, so:
 			// 1. `shift` it out of the `args` array if it's defined; or
 			// 2. Set it to an empty string if it's `undefined` and let the `initRepo` function throw an error.
-			const repoName = args.shift() || "";
+			const repoName = args.shift() ?? "";
 			await initRepo(repoName, args);
 			break;
 		}
 		default: {
 			throw new ValidationError(
-				`Unknown script: ${script}. Known scripts are: [${Object.values(scripts).join(", ")}]`,
+				`Unknown script. Known scripts are: [${Object.values(scripts).join(", ")}]`,
 				{
 					cause: {
 						code: "ERR_UNKNOWN_SCRIPT",
@@ -63,5 +63,5 @@ export const runScript = async () => {
 //
 /* v8 ignore next 3 */
 if (process.env["NODE_ENV"] !== "test") {
-	runScript();
+	void runScript();
 }

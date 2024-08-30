@@ -162,7 +162,7 @@ export const initRepo = async (repoName: string, args?: string[]) => {
 			arg === initRepoArgs.configureStylelint.longFlag ||
 			arg === initRepoArgs.configureStylelint.shortFlag,
 	);
-	if (configureStylelintFlag && configureStylelintFlag?.length > 1) {
+	if (configureStylelintFlag && configureStylelintFlag.length > 1) {
 		throw new ValidationError(
 			"Multiple `configureStylelint` flags received; only one may be passed.",
 			{
@@ -173,7 +173,7 @@ export const initRepo = async (repoName: string, args?: string[]) => {
 			},
 		);
 	}
-	if (configureStylelintFlag?.length === 1) {
+	if (configureStylelintFlag && configureStylelintFlag.length === 1) {
 		configureStylelint = true;
 	}
 
@@ -186,7 +186,7 @@ export const initRepo = async (repoName: string, args?: string[]) => {
 			flag === initRepoArgs.nodeVersion.shortFlag
 		);
 	});
-	if (nodeVersionFlagAndArg && nodeVersionFlagAndArg?.length > 1) {
+	if (nodeVersionFlagAndArg && nodeVersionFlagAndArg.length > 1) {
 		throw new ValidationError(
 			"Multiple `nodeVersion` flags received; only one may be passed.",
 			{
@@ -197,19 +197,17 @@ export const initRepo = async (repoName: string, args?: string[]) => {
 			},
 		);
 	}
-	if (
-		nodeVersionFlagAndArg &&
-		nodeVersionFlagAndArg[0] &&
-		nodeVersionFlagAndArg?.length === 1
-	) {
+	if (nodeVersionFlagAndArg?.[0] && nodeVersionFlagAndArg.length === 1) {
 		const flag = nodeVersionFlagAndArg[0].split("=")[0];
-		const version = nodeVersionFlagAndArg[0].split("=")[1] || "";
+		const version = nodeVersionFlagAndArg[0].split("=")[1] ?? "";
 
 		const isValidSemanticVersion = semVerRegExp(version).isMatch;
 		if (!isValidSemanticVersion) {
 			logErrorIntro();
 			throw new ValidationError(
-				`Argument for the optional \`${flag}\` parameter must be a valid semantic version number.`,
+				"Argument for the optional" +
+					` \`${initRepoArgs.nodeVersion.longFlag}\`/\`${initRepoArgs.nodeVersion.shortFlag}\` ` +
+					"flag must be a valid semantic version number.",
 				{
 					cause: {
 						code: "ERR_INVALID_NODEVERSION",

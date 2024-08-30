@@ -16,10 +16,12 @@ import {ValidationError} from "./ValidationError.js";
  * 2. This `devdeps` repo itself.
  *
  * **Important:** Note that the `absoluteRepoRootPath` path is intentionally returned _without_ a trailing slash.
- *
- * @todo Simplify this function if/when the `import.meta.resolve()` function can be used within Jest.
  */
 export const getAbsoluteRepoRootPath = () => {
+	/**
+	 * @todo Simplify this function by replacing `import.meta.url` if/when the
+	 *       `import.meta.resolve()` function becomes useable within Jest.
+	 */
 	const absolutePath = fileURLToPath(import.meta.url);
 	/**
 	 * `partialPath` is known and stable; it's agnostic of differences between

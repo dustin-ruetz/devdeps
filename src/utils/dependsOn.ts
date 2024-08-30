@@ -1,10 +1,18 @@
 import {readFile} from "node:fs/promises";
+import type {PackageJsonTypes} from "../types.js";
 import {getAbsoluteRepoRootPath} from "./getAbsoluteRepoRootPath.js";
 import {ValidationError} from "./ValidationError.js";
 
 /**
- * Given a list of dependencies, check the repository's package.json file
- * and determine whether or not the project depends on any of them.
+ * @description Given a list of dependencies, check the repository's `package.json` file
+ *              and determine whether or not the project depends on any of them.
+ *
+ * @example
+ * ```js
+ * // The following line of code checks the repository's `package.json` file to determine
+ * // whether or not the project depends on either the Pug or React packages.
+ * const testEnvironment = await dependsOn(["pug", "react"]) ? "jsdom" : "node";
+ * ```
  */
 export const dependsOn = async (deps: string[]) => {
 	// It's possible to use this function directly from the compiled lib/ .js file,
@@ -40,7 +48,7 @@ export const dependsOn = async (deps: string[]) => {
 	const packageJsonContents = await readFile(packageJsonPath, {
 		encoding: "utf-8",
 	});
-	const packageJson = JSON.parse(packageJsonContents);
+	const packageJson = JSON.parse(packageJsonContents) as PackageJsonTypes;
 	const allDependencies = {
 		...packageJson.dependencies,
 		...packageJson.devDependencies,

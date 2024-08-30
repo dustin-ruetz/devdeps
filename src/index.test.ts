@@ -47,6 +47,17 @@ describe("`initRepo` script", () => {
 	});
 
 	describe("is called with the correct arguments", () => {
+		test("when the required `repoName` argument is not passed", async () => {
+			// @ts-expect-error if a non-string value is pushed into the `argv` array.
+			process.argv.push(undefined);
+
+			await runScript();
+
+			expect(logInitRepoHelpText).not.toHaveBeenCalled();
+			expect(initRepo).toHaveBeenCalledTimes(1);
+			expect(initRepo).toHaveBeenCalledWith("", []);
+		});
+
 		test("when the required `repoName` argument is passed as an empty string", async () => {
 			process.argv.push("");
 
@@ -94,7 +105,7 @@ describe("throws an error", () => {
 	});
 
 	test("when no script name is passed", () => {
-		expect(async () => {
+		void expect(async () => {
 			await runScript();
 		}).rejects.toThrow(/ERR_UNKNOWN_SCRIPT/);
 	});
@@ -102,7 +113,7 @@ describe("throws an error", () => {
 	test("when an unknown script is passed", () => {
 		process.argv.push("unknown-script");
 
-		expect(async () => {
+		void expect(async () => {
 			await runScript();
 		}).rejects.toThrow(/ERR_UNKNOWN_SCRIPT/);
 	});

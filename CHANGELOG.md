@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## [1.9.1](https://github.com/dustin-ruetz/devdeps/compare/v1.9.0...v1.9.1) (2024-08-30)
+
+### Bug Fixes
+
+* **dependencies:** update packages to latest versions ([f8148a5](https://github.com/dustin-ruetz/devdeps/commit/f8148a5ee016a63219227964803d0015ef5a8f6c))
+
+## [1.9.0](https://github.com/dustin-ruetz/devdeps/compare/v1.8.0...v1.9.0) (2024-08-30)
+
+### Features
+
+* **config/lint-staged.config:** remove '.json' files from file extensions and simplify file ([61cad4b](https://github.com/dustin-ruetz/devdeps/commit/61cad4bf31f1a52ab1a6b87c69e1292b33edd343))
+
+### Bug Fixes
+
+* **dependencies:** update packages to latest versions ([f8eefd8](https://github.com/dustin-ruetz/devdeps/commit/f8eefd8849a88be7dfc821e8ba3c2485d6cec0f0))
+
+## [1.8.0](https://github.com/dustin-ruetz/devdeps/compare/v1.7.0...v1.8.0) (2024-08-30)
+
+### Features
+
+* enable typed linting feature of `typescript-eslint` ([#59](https://github.com/dustin-ruetz/devdeps/issues/59)) ([4a0026d](https://github.com/dustin-ruetz/devdeps/commit/4a0026da15483df7946d530c0aa0404069f414be))
+
 ## [1.7.0](https://github.com/dustin-ruetz/devdeps/compare/v1.6.0...v1.7.0) (2024-08-28)
 
 ### Features
