@@ -27,6 +27,7 @@ export const makeJestConfig = async (): Promise<Config> => {
 		"<rootDir>/lib/",
 		"<rootDir>/node_modules/",
 		"<rootDir>/www/",
+		".d.ts",
 		".mock.(js|ts)",
 		"types.ts",
 	] as const;

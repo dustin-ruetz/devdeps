@@ -2,7 +2,7 @@
 
 Package that provides development dependencies and standardized configurations for other JavaScript/TypeScript projects (both web and Node.js) to consume.
 
-## Purpose
+## Features and Purpose
 
 `@dustin-ruetz/devdeps` provides `devDependencies` and configuration files for:
 
@@ -68,7 +68,7 @@ npm run fix/format
 
 # 6. Note how the key files (`package.json`, `README.md`, `tsconfig.json`, etc.)
 #    and folders (`.githooks/`, `.vscode/`) have all been initialized. Open each
-#    file and make updates as needed, then add and commit everything:
+#    written file and make updates as needed, then add and commit everything:
 git add --all && git commit -m "feat: initial commit"
 
 # 7. Verify that the Git hooks ran automatically and the relevant checks

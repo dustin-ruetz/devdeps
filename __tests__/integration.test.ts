@@ -23,8 +23,12 @@ test("INTEGRATION: the original `src/` files are mapped one-to-one with the comp
 				(item) =>
 					// 1. It *does* end with one of the following file extensions; and
 					(item.endsWith(".js") || item.endsWith(".ts")) &&
-					// 2. It *does not* contain the ".mock" or ".test" substrings.
-					!(item.includes(".mock") || item.includes(".test")),
+					// 2. It *does not* contain one of the following substrings.
+					!(
+						item.includes(".d.ts") ||
+						item.includes(".mock") ||
+						item.includes(".test")
+					),
 			)
 			// Sort the array in alphabetical order.
 			.sort()

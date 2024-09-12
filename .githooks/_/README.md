@@ -5,7 +5,7 @@
 - Description: husky shell script adapted from the original husky template for Git hooks.
 - Documentation: https://typicode.github.io/husky/
 - Repository: https://github.com/typicode/husky
-- Version: 9.1.4
+- Version: 9.1.6
 
 ## Upgrading the husky version
 
@@ -19,11 +19,13 @@ npm install --save-dev --save-exact husky@latest
 npx husky init
 ```
 
-2. Open the `package.json` file and delete the unneeded `prepare` script that was added by the previous `husky init` command.
+2. Update the `Version` number in the [Summary](#summary) section of this file.
 
-3. Execute the `npm run init` command to re-configure the Git hooks path back to the `.githooks/` directory.
+3. Open the `package.json` file and delete the unneeded `prepare` script that was added after running the `husky init` command.
 
-4. Compare the Git diffs between the following files and incorporate the changes from the former into the latter:
+4. Execute the `npm run init` command to re-configure the Git hooks path back to the `.githooks/` directory.
+
+5. Compare the Git diffs between the following files and incorporate the changes from the former into the latter:
 
 | Former               | Latter                  |
 | :------------------- | :---------------------- |
@@ -32,6 +34,10 @@ npx husky init
 | .husky/\_/pre-commit | .githooks/\_/pre-commit |
 | .husky/\_/pre-push   | .githooks/\_/pre-push   |
 
-5. Delete the `.husky/` directory.
+6. Delete the `.husky/` directory.
 
-6. Commit the changes to all modified files.
+7. Commit the changes to all modified files:
+
+```sh
+git add --all && git commit -m "fix(dependencies): update 'husky' to latest version"
+```

@@ -9,6 +9,9 @@ export const pugPrettierPlugin = {
 		// > Define how classes should be formatted.
 		// > `"literal"` - Forces all valid classes to be printed as literals.
 		pugClassNotation: "literal",
+		// > Define if the closing bracket of a multiline element should be indented to align with the element or its attributes.
+		// > This only takes effect if the `bracketSameLine` or `pugBracketSameLine` options are set to `false`.
+		pugClosingBracketIndentDepth: 0,
 		// > Change behavior of spaces within comments.
 		pugCommentPreserveSpaces: "keep-all",
 		// > Change behavior of boolean attributes.

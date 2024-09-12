@@ -1,6 +1,6 @@
 /**
- * Specify the shape and types of the `package.json` object's key/value pairs (for scenarios
- * like `readFile(packageJsonPath)`) where TypeScript has no way of knowing what they are.
+ * Specify the shape and types of the `package.json` object's key/value pairs for scenarios
+ * where TypeScript has no way of knowing what they are (ex: `readFile(packageJsonPath)`).
  */
 export type PackageJsonTypes = {
 	name: string;

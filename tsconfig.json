@@ -5,6 +5,7 @@
 		"jsx": "react",
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
+		"noUncheckedSideEffectImports": true,
 		"resolveJsonModule": true,
 		"target": "ES2022",
 		"verbatimModuleSyntax": true
