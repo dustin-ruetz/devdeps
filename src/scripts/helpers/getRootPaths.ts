@@ -12,11 +12,6 @@ export const getRootPaths = () => {
 		writeTo: "",
 	};
 
-	/**
-	 * @todo Figure out why the following conditional logic (which _is_ in fact covered in the unit test)
-	 *       erroneously and flakily reports "Uncovered Line #s" errors in the test coverage report.
-	 */
-	/* v8 ignore next 14 */
 	// *If* developing/testing locally from this `devdeps` repo:
 	// 1. Read from the root of the repo, and
 	// 2. Write to the .gitignore'd `.init-repo-script-test-output/` directory.

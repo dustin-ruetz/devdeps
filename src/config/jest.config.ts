@@ -126,6 +126,10 @@ export const makeJestConfig = async (): Promise<Config> => {
 						 */
 						target: "ES2022",
 					},
+					/** @link https://github.com/swc-project/swc/issues/3854 */
+					// sourceMaps: "inline",
+					inlineSourcesContent: true,
+					sourceMaps: true,
 				},
 			],
 			".svg": `${transformerBasePath}/lib/config/jest-transformers/svgFile.js`,
